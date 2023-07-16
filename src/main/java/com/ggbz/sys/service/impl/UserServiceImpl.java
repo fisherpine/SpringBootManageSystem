@@ -33,9 +33,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         if(loginUser != null){
             //暂时用UUID，中级方案是jwt
             String key = "user:" + UUID.randomUUID();
+            //UUID 是 通用唯一识别码（Universally Unique Identifier）的缩写，是一种软件建构的标准
 
             //存入redis
-
+            
             //返回数据
             Map<String,Object> data = new HashMap<>();
             data.put("token",key);
