@@ -21,6 +21,7 @@ import java.util.Map;
 //@RequestMapping("/sys/user")
 @RestController//默认帮你做json处理
 @RequestMapping("/user")
+//@CrossOrigin 跨域处理
 public class UserController {
     @Autowired
     private IUserService userService;
