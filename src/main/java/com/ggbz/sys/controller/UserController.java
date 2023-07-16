@@ -40,4 +40,14 @@ public class UserController {
         }
         return Result.fail(20002,"用户名或密码错误");
     }
+
+    @GetMapping("/info")
+    public Result<Map<String,Object>> getUserInfo(@RequestParam("token") String token){
+        //根据token获取用户信息，redis
+        Map<String,Object> data = userService.getUserInfo(token);
+        if(data != null){
+            return Result.success(data);
+        }
+        return Result.fail(20003,"登录信息无效，请重新登录");
+    }
 }

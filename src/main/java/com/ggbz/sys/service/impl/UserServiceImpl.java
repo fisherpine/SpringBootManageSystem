@@ -1,5 +1,6 @@
 package com.ggbz.sys.service.impl;
 
+import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.ggbz.sys.entity.User;
 import com.ggbz.sys.mapper.UserMapper;
@@ -11,6 +12,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -48,6 +50,25 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             //返回数据
             Map<String,Object> data = new HashMap<>();
             data.put("token",key);
+            return data;
+        }
+        return null;
+    }
+
+    @Override
+    public Map<String, Object> getUserInfo(String token) {
+        //根据token获取用户信息，redis
+        Object obj = redisTemplate.opsForValue().get(token);
+        //拿出来做反序列化
+        if(obj != null){
+            User loginUser = JSON.parseObject(JSON.toJSONString(obj),User.class);
+            Map<String,Object> data = new HashMap<>();
+            data.put("name",loginUser.getUsername());
+            data.put("avtar",loginUser.getAvatar());//用户头像地址
+
+            //角色
+            List<String> roleList = this.baseMapper.getRoleNameByUserId(loginUser.getId());
+            data.put("roles",roleList);
             return data;
         }
         return null;
