@@ -70,7 +70,7 @@ public class UserController {
         LambdaQueryWrapper<User> wrapper = new LambdaQueryWrapper<>();
         wrapper.eq(StringUtils.hasLength(username),User::getUsername,username);
         wrapper.eq(StringUtils.hasLength(phone),User::getPhone,phone);
-
+        wrapper.orderByDesc(User::getId);
         Page<User> page = new Page<>(pageNo,pageSize);
         userService.page(page,wrapper);
 
