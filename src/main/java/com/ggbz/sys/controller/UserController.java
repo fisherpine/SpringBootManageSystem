@@ -6,6 +6,7 @@ import com.ggbz.common.vo.Result;
 import com.ggbz.sys.entity.User;
 import com.ggbz.sys.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -30,6 +31,9 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
     @GetMapping("/all")
     //这里类型要修改，不然返回不匹配
     public Result<List<User>> getAllUser(){
@@ -39,6 +43,7 @@ public class UserController {
 
     @PostMapping("/login")
     public Result<Map<String,Object>> login(@RequestBody User user){
+
         Map<String,Object> data = userService.login(user);
         if(data!=null) {
             return Result.success(data);
@@ -84,6 +89,8 @@ public class UserController {
 
     @PostMapping
     public Result<?> addUser(@RequestBody User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+
         userService.save(user);
         return Result.success("新增用户成功");
     }
