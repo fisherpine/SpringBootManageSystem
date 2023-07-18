@@ -2,6 +2,7 @@ package com.ggbz.sys.mapper;
 
 import com.ggbz.sys.entity.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.mybatis.spring.annotation.MapperScan;
 
 import java.util.List;
 
@@ -16,5 +17,5 @@ import java.util.List;
 public interface UserMapper extends BaseMapper<User> {
     public List<String> getRoleNameByUserId(Integer userId);
 
-
+    public List<User> getAllUser();
 }

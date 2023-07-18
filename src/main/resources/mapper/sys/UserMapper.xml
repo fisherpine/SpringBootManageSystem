@@ -9,6 +9,10 @@
         WHERE
             a.role_id = b.`role_id`
           AND a.user_id = #{userId}
+    </select>
 
+    <select id="getAllUser" resultType="com.ggbz.sys.entity.User">
+        SELECT *
+        FROM x_user
     </select>
 </mapper>

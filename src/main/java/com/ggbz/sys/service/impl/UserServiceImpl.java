@@ -30,6 +30,8 @@ import java.util.concurrent.TimeUnit;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
 
     @Autowired
+    private UserMapper userMapper;
+    @Autowired
     private RedisTemplate redisTemplate;
 
     @Autowired
@@ -58,7 +60,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 //        }
 //        return null;
 //    }
-
+    @Override
+    public List<User> getAllUser(){
+        return userMapper.getAllUser();
+    }
     @Override
     public Map<String, Object> login(User user) {
         //根据用户名和密码查询

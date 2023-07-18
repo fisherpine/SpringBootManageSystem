@@ -37,7 +37,7 @@ public class UserController {
     @GetMapping("/all")
     //这里类型要修改，不然返回不匹配
     public Result<List<User>> getAllUser(){
-        List<User> list = userService.list();
+        List<User> list = userService.getAllUser();
         return Result.success(list,"查询成功");
     }
 

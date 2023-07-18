@@ -3,9 +3,11 @@ server:
 
 spring:
   datasource:
+    type: com.alibaba.druid.pool.DruidDataSource
     username: root
     password: 123456
     url: jdbc:mysql://localhost:3306/xdb?useSSL=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
   redis:
     port: 6379
     host: 192.168.80.129
@@ -21,3 +23,9 @@ mybatis-plus:
       logic-delete-field: deleted
       logic-not-delete-value: 0
       logic-delete-value: 1
+
+
+
+mybatis:
+  type-aliases-package: com.ggbz.sys.entity  #别名
+  mapper-locations: classpath:/mapper/sys/*.xml #xml文件
